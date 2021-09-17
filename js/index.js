@@ -18,11 +18,11 @@ function validFormFieldInput(){
 
     let isError = false;
     inputFields.forEach(field => {
-        field.classList.remove('error');
+        field.classList.remove('alert-danger');
     });
     inputFields.forEach(field => {
         if(field.value === '') {
-            field.classList.add('error'); 
+            field.classList.add('alert-danger'); 
             isError = true;
         }
     });
