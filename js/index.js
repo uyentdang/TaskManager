@@ -1,8 +1,10 @@
 // Should be deleted
 let taskManager = new TaskManager();
+// Should be deleted -----
+
 const errorBox = document.querySelector('.error-box');
 const inputFields = document.querySelectorAll('.form-control');
-// Should be deleted -----
+
 
 function validFormFieldInput(){
     //should be deleted
@@ -28,9 +30,13 @@ function validFormFieldInput(){
     });
     if (isError === true) {
         errorBox.style.top = '20px';
+        return false;
     }
     taskManager.addTask(taskName, description, assignedTo, date );
     console.log(taskManager.tasks);
+    taskManager.render();
+    const taskHtml = createTaskHtml(taskName, description, assignedTo, date, taskManager.status);
+    console.log (taskHtml);
 }
 
 const addTaskButton = document.getElementById('add-task-button');
