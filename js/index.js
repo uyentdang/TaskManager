@@ -33,10 +33,8 @@ function validFormFieldInput(){
         return false;
     }
     taskManager.addTask(taskName, description, assignedTo, date );
-    console.log(taskManager.tasks);
     taskManager.render();
-    const taskHtml = createTaskHtml(taskName, description, assignedTo, date, taskManager.status);
-    console.log (taskHtml);
+    
 }
 
 const addTaskButton = document.getElementById('add-task-button');
@@ -46,6 +44,19 @@ const errorCloseBtn = document.querySelector('.close-btn');
 errorCloseBtn.addEventListener('click', () => {
     errorBox.style.top = '-400px';
 });
+
+let taskList = document.querySelector('#list-container');
+
+taskList.addEventListener('click', (event) => {
+    if (event.target.classList.contains('done-button')){
+        let parentTask = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+        let taskId = parseInt(parentTask.id);
+        let task = taskManager.getTaskById(taskId);
+        task.status= 'Done';
+        taskManager.render();
+    }
+})
+
 
 // Should be deleted
 // console.log(test.tasks);
