@@ -1,5 +1,3 @@
-
-
 function createTaskHtml (id, name, description, assignedTo, dueDate, status){
     const html = `
     <li class="list-group-item" id = "${id}">
@@ -32,7 +30,7 @@ function createTaskHtml (id, name, description, assignedTo, dueDate, status){
     return html;
 } 
 
-// should be deleted
+
 class TaskManager {
     constructor(currentId = 0) {
         this.tasks = [];
@@ -51,8 +49,6 @@ class TaskManager {
 
         this.tasks.push(task);
     }
-
-//should be deleted-----
 
     render(){
         const tasksHtmlList = [];
