@@ -1,13 +1,8 @@
-// Should be deleted
 let taskManager = new TaskManager();
-// Should be deleted -----
-
 const errorBox = document.querySelector('.error-box');
 const inputFields = document.querySelectorAll('.form-control');
 
-
 function validFormFieldInput(){
-    //should be deleted
     const newTaskNameInput = document.getElementById('taskName');
     const taskName = newTaskNameInput.value;
     const newTaskDescription = document.getElementById('taskDescription');
@@ -16,7 +11,6 @@ function validFormFieldInput(){
     const assignedTo = assignedToInput.value;
     const newDateInput = document.getElementById('dueDate');
     const date = newDateInput.value;
-    //should be deleted -----
 
     let isError = false;
     inputFields.forEach(field => {
@@ -56,8 +50,3 @@ taskList.addEventListener('click', (event) => {
         taskManager.render();
     }
 })
-
-
-// Should be deleted
-// console.log(test.tasks);
-// Should be deleted -----
