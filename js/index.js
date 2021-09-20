@@ -24,7 +24,7 @@ function validFormFieldInput(){
     });
     inputFields.forEach(field => {
         if(field.value === '') {
-            field.classList.add('alert-danger'); 
+            field.classList.add('alert-danger');
             isError = true;
         }
     });
@@ -34,7 +34,7 @@ function validFormFieldInput(){
     }
     taskManager.addTask(taskName, description, assignedTo, date );
     taskManager.render();
-    
+
 }
 
 const addTaskButton = document.getElementById('add-task-button');

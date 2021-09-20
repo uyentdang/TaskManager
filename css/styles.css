@@ -1,15 +1,28 @@
-.list-group-item {
-    padding-right: 4.5%;
-    padding-top: 1.5%;
-}
-
-.form-group-row{
-    width : 50%;
-    height: 100px;
-}
-
 .task-adding-form{
-margin-left: 300px;
+    margin-left: 50px;
+    margin-right: 50px;
+    padding: 50px;
+    height: 100%;
+    display:flex;
+    font-weight: bold;
+}
+
+#add-task-area{
+    width: 50%;
+    height: 100%;
+}
+
+#generated-task{
+    margin-left: 200px;
+    width: 100%;
+    border: 1px solid black;
+
+}
+
+#list-container {
+    padding: 0;
+    margin: 0;
+    background-color: aquamarine;
 }
 
 .error-box {

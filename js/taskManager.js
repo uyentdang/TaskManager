@@ -20,7 +20,7 @@ function createTaskHtml (id, name, description, assignedTo, dueDate, status){
           <div class="col">
           <p class="card-subtitle mb-2 text-muted">Status: ${status} </p>
         </div>
-        
+
         <div>
           <button class="btn btn-secondary done-button" type="button" id="mark-done-button">Mark as Done</button>
         </div>
@@ -30,7 +30,7 @@ function createTaskHtml (id, name, description, assignedTo, dueDate, status){
       </div>
     </li>`
     return html;
-} 
+}
 
 // should be deleted
 class TaskManager {
@@ -46,7 +46,7 @@ class TaskManager {
             description: description,
             assignedTo: assignedTo,
             dueDate: dueDate,
-            status: 'TODO'
+            status: 'To-do'
         };
 
         this.tasks.push(task);
@@ -62,7 +62,7 @@ class TaskManager {
             let formattedDate = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
             let tasksHtml = createTaskHtml(task.id, task.name, task.description, task.assignedTo, formattedDate, task.status);
             tasksHtmlList.push(tasksHtml);
-            console.log (tasksHtml);
+            console.log(tasksHtml);
         }
         let tasksHtml = tasksHtmlList.join('\n');
         document.getElementById('list-container').innerHTML = tasksHtml;
