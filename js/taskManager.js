@@ -1,5 +1,5 @@
-function createTaskHtml (id, name, description, assignedTo, dueDate, status){
-    const html = `
+function createTaskHtml(id, name, description, assignedTo, dueDate, status) {
+  const html = `
     <li class="list-group-item" id = "${id}">
       <div class = "col ml-4">
       <div class = "row">
@@ -21,58 +21,97 @@ function createTaskHtml (id, name, description, assignedTo, dueDate, status){
 
         <div>
           <button class="btn btn-secondary done-button" type="button" id="mark-done-button">Mark as Done</button>
+          <button class="btn btn-secondary delete-button" type="button" id="delete-button">Delete</button>
         </div>
+        
       </div>
       </div>
       </div>
       </div>
-    </li>`
-    return html;
+    </li>`;
+  return html;
 }
 
-
 class TaskManager {
-    constructor(currentId = 0) {
-        this.tasks = [];
-        this.currentId = currentId;
+  constructor(currentId = 0) {
+    this.tasks = [];
+    this.currentId = currentId;
+  }
+
+  addTask(name, description, assignedTo, dueDate, status) {
+    const task = {
+      id: this.currentId++,
+      name: name,
+      description: description,
+      assignedTo: assignedTo,
+      dueDate: dueDate,
+      status: 'To-do',
+    };
+
+    this.tasks.push(task);
+  }
+
+  render() {
+    const tasksHtmlList = [];
+    for (let i = 0; i < this.tasks.length; i++) {
+      let task = this.tasks[i];
+      let date = new Date(task.dueDate);
+      let formattedDate =
+        date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+      let tasksHtml = createTaskHtml(
+        task.id,
+        task.name,
+        task.description,
+        task.assignedTo,
+        formattedDate,
+        task.status
+      );
+      tasksHtmlList.push(tasksHtml);
+      // console.log(tasksHtml);
     }
+    let tasksHtml = tasksHtmlList.join('\n');
+    document.getElementById('list-container').innerHTML = tasksHtml;
+  }
 
-    addTask(name, description, assignedTo, dueDate, status) {
-        const task = {
-            id: this.currentId++,
-            name: name,
-            description: description,
-            assignedTo: assignedTo,
-            dueDate: dueDate,
-            status: 'To-do'
-        };
+  save() {
+    // tasks
+    const tasksJson = JSON.stringify(this.tasks);
+    localStorage.setItem('tasks', tasksJson);
+    // current Id
+    const currentId = this.currentId + '';
+    console.log(currentId, this.currentId);
+    localStorage.setItem('currentId', currentId);
+  }
 
-        this.tasks.push(task);
+  load() {
+    const tasksJson = localStorage.getItem('tasks');
+    const currentId = localStorage.getItem('currentId');
+    // truethy value
+    if (tasksJson) {
+      this.tasks = JSON.parse(tasksJson);
     }
+    this.currentId = parseInt(currentId);
+  }
 
-    render(){
-        const tasksHtmlList = [];
-        for(let i=0; i<this.tasks.length; i++){
-            let task = this.tasks[i];
-            let date = new Date(task.dueDate);
-            let formattedDate = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
-            let tasksHtml = createTaskHtml(task.id, task.name, task.description, task.assignedTo, formattedDate, task.status);
-            tasksHtmlList.push(tasksHtml);
-            console.log(tasksHtml);
-        }
-        let tasksHtml = tasksHtmlList.join('\n');
-        document.getElementById('list-container').innerHTML = tasksHtml;
-
-    }
-
-    getTaskById(taskId){
-      let foundTask;
-      for(let i = 0; i<this.tasks.length; i++){
-        let task = this.tasks[i];
-        if(taskId == task.id){
-          foundTask = task;
-        }
+  getTaskById(taskId) {
+    let foundTask;
+    for (let i = 0; i < this.tasks.length; i++) {
+      let task = this.tasks[i];
+      if (taskId == task.id) {
+        foundTask = task;
       }
-      return foundTask;
     }
+    return foundTask;
+  }
+
+  deleteTask(taskId){
+    let newTask = [];
+    for (let i = 0; i < this.tasks.length; i++){
+      const task = this.tasks[i];
+      if (task.id !== taskId){
+        newTask.push(task);
+      }
+    }
+    this.tasks = newTask;
+  }
 }
