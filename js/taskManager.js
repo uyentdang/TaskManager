@@ -37,8 +37,8 @@ class TaskManager {
     this.tasks = [];
     this.currentId = currentId;
   }
-
-  addTask(name, description, assignedTo, dueDate, status) {
+  // remove status from parameters
+  addTask(name, description, assignedTo, dueDate) {
     const task = {
       id: this.currentId++,
       name: name,
@@ -67,7 +67,6 @@ class TaskManager {
         task.status
       );
       tasksHtmlList.push(tasksHtml);
-      // console.log(tasksHtml);
     }
     let tasksHtml = tasksHtmlList.join('\n');
     document.getElementById('list-container').innerHTML = tasksHtml;
@@ -75,22 +74,25 @@ class TaskManager {
 
   save() {
     // tasks
-    const tasksJson = JSON.stringify(this.tasks);
-    localStorage.setItem('tasks', tasksJson);
-    // current Id
-    const currentId = this.currentId + '';
-    console.log(currentId, this.currentId);
-    localStorage.setItem('currentId', currentId);
+    const tasksJson = JSON.stringify(this.tasks);      
+      localStorage.setItem('tasks', tasksJson);
+      const currentId = this.currentId.toString();
+      console.log(currentId, this.currentId);
+      localStorage.setItem('currentId', currentId);    
   }
 
   load() {
-    const tasksJson = localStorage.getItem('tasks');
-    const currentId = localStorage.getItem('currentId');
-    // truethy value
-    if (tasksJson) {
+    // add if statement before setting localStorage
+    if(localStorage.getItem('tasks')) {
+      const tasksJson = localStorage.getItem('tasks');
       this.tasks = JSON.parse(tasksJson);
     }
-    this.currentId = parseInt(currentId);
+    
+    if(localStorage.getItem('currentId')) {
+      const currentId = localStorage.getItem('currentId');
+      this.currentId = parseInt(currentId);
+    }
+    
   }
 
   getTaskById(taskId) {
